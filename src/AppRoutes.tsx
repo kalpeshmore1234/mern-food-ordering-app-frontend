@@ -9,6 +9,7 @@ import SearchPage from "./pages/SearchPage";
 import DetailPage from "./pages/DetailPage";
 
 
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -38,6 +39,7 @@ const AppRoutes = () => {
         }
       />
       <Route element={<ProtectedRoute />}>
+     
         
         <Route
           path="/user-profile"
@@ -59,6 +61,8 @@ const AppRoutes = () => {
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
+    
+    
   );
 };
 

@@ -1,16 +1,16 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useAuth0 } from "@auth0/auth0-react";
 import LoadingButton from "./LoadingButton";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import UserProfileForm, { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
 
 type Props = {
-    onCheckout: (userFormData: UserFormData)=> void;
-    disabled: boolean;
-    isLoading: boolean;
-};
+   onCheckout: (userFormData: UserFormData)=> void;
+   disabled: boolean;
+   isLoading: boolean;
+}
 
 const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   const {
@@ -22,8 +22,6 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   const { pathname } = useLocation();
 
   const { currentUser, isLoading: isGetUserLoading } = useGetMyUser();
-
-  // /detail/52553535
 
   const onLogin = async () => {
     await loginWithRedirect({
@@ -56,7 +54,7 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
           currentUser={currentUser}
           onSave={onCheckout}
           isLoading={isGetUserLoading}
-          title="Confirm Delivery Details"
+          title= "Confirm Delivery Details"
           buttonText="Continue to payment"
         />
       </DialogContent>

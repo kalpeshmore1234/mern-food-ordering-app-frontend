@@ -5,24 +5,24 @@ import { toast } from "sonner";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 type CheckoutSessionRequest = {
-  cartItems: {
-    menuItemId: string;
-    name: string;
-    quantity: string;
-  }[];
-  deliveryDetails: {
-    email: string;
-    name: string;
-    addressLine1: string;
-    city: string;
+    cartItems: {
+      menuItemId: string;
+      name: string;
+      quantity: string;
+    }[];
+    deliveryDetails: {
+      email: string;
+      name: string;
+      addressLine1: string;
+      city: string;
+    };
+    restaurantId: string;
   };
-  restaurantId: string;
-};
 
 export const useCreateCheckoutSession = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const createCheckoutSessionRequest = async (checkoutSessionRequest: CheckoutSessionRequest) => {
+  const createCheckoutSessionRequest = async (checkoutSessionRequest : CheckoutSessionRequest) => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(
@@ -33,12 +33,13 @@ export const useCreateCheckoutSession = () => {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify(checkoutSessionRequest),
       }
     );
 
     if (!response.ok) {
-      throw new Error("unable to create checkout session");
+      throw new Error("Unable to create checkout session");
     }
 
     return response.json();
@@ -51,6 +52,7 @@ export const useCreateCheckoutSession = () => {
     reset,
   } = useMutation(createCheckoutSessionRequest);
 
+
   if(error){
     toast.error(error.toString());
     reset();
@@ -58,6 +60,6 @@ export const useCreateCheckoutSession = () => {
 
   return {
     createCheckoutSession,
-    isLoading
+    isLoading,
   }
 };
